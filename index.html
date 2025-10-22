@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Computer guess a number</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1 class="center">Let the computer guess a number between 0 and 100</h1>
+    <h2 class="center">Thought of a number? Press start</h2>
+
+    <button id="start">start</button>
+
+    <div class="center">
+      <h2 id="new_guess">Guess</h2>
+    </div>
+
+
+    <div class="center">
+      <button class="space" id="tooLow">Too low</button>
+      <button class="space" id="tooHigh">Too High</button>
+      <button class="space" id="correct">Correct</button>
+    </div>
+
+    <div class="center">
+      <h2>Computer guesses</h2>
+      <ul id="computer_guesses">
+        <li>42 - Too low </li>
+        <li>44 - Too High </li>
+        <li>43 - Correct </li>
+      </ul>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

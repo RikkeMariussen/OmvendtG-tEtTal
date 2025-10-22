@@ -1,0 +1,15 @@
+body{
+    background-color: #666;
+    color: #6eb;
+    font-family: Arial, Helvetica, sans-serif;
+    display: grid;
+    justify-content: center;
+}
+
+.center{
+     text-align: center;
+}
+
+.space{
+    margin: 0.5em;
+}
