@@ -7,6 +7,7 @@ let guess; //Aka "middle"
 let min;
 let max;
 let count;
+let lastGuess;
 
 function main() {
     console.log("JavaScript kører!");
@@ -24,7 +25,15 @@ function startGame() {
 }
 
 function calculateGuess() {
+    //Så man kan sammenligne, og det samme gæt ikke kommer to gange - det tjekker dog ikke om gættet har eksisteret før den sidste gang.
+    lastGuess = guess;
     guess = Math.floor(max-((max-min)/2));
+    if(guess<0){
+        correct();
+    }
+    if(lastGuess==guess){
+        error();
+    }
     count++;
     document.querySelector("#new_guess").innerText = guess;
 }
@@ -63,6 +72,15 @@ function correct() {
     }  
     document.querySelector("#computer_guesses").insertAdjacentHTML("beforeend",
         `<li>The computer guessed it in ${count} number of guesses - ${comment}</li>`
+        )
+    document.querySelector("#tooLow").removeEventListener("click", guessTooLow);
+    document.querySelector("#tooHigh").removeEventListener("click", guessTooHigh);
+    document.querySelector("#correct").removeEventListener("click", correct);
+}
+
+function error() {
+        document.querySelector("#computer_guesses").insertAdjacentHTML("beforeend",
+        `<li>This is the last option, unless you lied. So goodnight!</li>`
         )
     document.querySelector("#tooLow").removeEventListener("click", guessTooLow);
     document.querySelector("#tooHigh").removeEventListener("click", guessTooHigh);
