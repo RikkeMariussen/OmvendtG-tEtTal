@@ -2,52 +2,67 @@
 
 window.addEventListener("DOMContentLoaded", main);
 
-const number = 42;
+//Variablerne bliver ikke sat her, da de skal kunne ændres ved start af spillet på
+let guess; //Aka "middle"
+let min;
+let max;
+let count;
 
 function main() {
     console.log("JavaScript kører!");
-    
     document.querySelector("#start").addEventListener("click", startGame);
-
 }
 
 function startGame() {
+    min = 0;
+    max = 100;
+    count = 0;
+    calculateGuess();
     document.querySelector("#tooLow").addEventListener("click", guessTooLow);
     document.querySelector("#tooHigh").addEventListener("click", guessTooHigh);
     document.querySelector("#correct").addEventListener("click", correct);
-
-    const firstGuess = 40;
-    document.querySelector("#new_guess").innerText = firstGuess;
 }
 
-function guess() {
-    guess = Math.floor(Math.random() * 101);
-    return guess;
+function calculateGuess() {
+    guess = Math.floor(max-((max-min)/2));
+    count++;
+    document.querySelector("#new_guess").innerText = guess;
 }
 
 function guessTooLow() {
-    const guess = 41;
     document.querySelector("#computer_guesses").insertAdjacentHTML("beforeend",
         `<li>The computer guessed: ${guess} - It is too low</li>`
         )
-    const newGuess = 43;
-    document.querySelector("#new_guess").innerText = newGuess;
+    //Gættet er for lavt, så vi sætter min til vores gæt + 1, da vi ved at vores gæt var forkert og ikke længere indgår i mulighederne
+    min = guess+1;
+    calculateGuess();
 }
 
 function guessTooHigh() {
-    const guess = 43;
     document.querySelector("#computer_guesses").insertAdjacentHTML("beforeend",
         `<li>The computer guessed: ${guess} - It is too high</li>`
         )
-
-    const newGuess = 41;
-    document.querySelector("#new_guess").innerText = newGuess;
+    //Gættet er for højt, så vi sætter max til vores gæt - 1, da vi ved at vores gæt var forkert og ikke længere indgår i mulighederne
+    max = guess-1;
+    calculateGuess();
 }
 
 function correct() {
-    const guess = 42;
     document.querySelector("#computer_guesses").insertAdjacentHTML("beforeend",
         `<li>The computer guessed: ${guess} - It is correct</li>`
+        )
+    let comment;
+    if(count < 3){
+        comment = "Damn, I'm good!";
+    }
+    if(count > 3 && count < 6){
+        comment = "Well, I am bit slow today!";
+    }  
+    if(count >= 7){
+        comment = "Hmmm today is not my day.. I will try again tomorrow!";
+    }  
+    document.querySelector("#computer_guesses").insertAdjacentHTML("beforeend",
+        `<li>The computer guessed it in ${count} number of guesses - ${comment}</li>`
         )
     document.querySelector("#tooLow").removeEventListener("click", guessTooLow);
     document.querySelector("#tooHigh").removeEventListener("click", guessTooHigh);
